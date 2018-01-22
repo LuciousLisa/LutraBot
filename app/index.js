@@ -104,6 +104,12 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
       return;
     }
 
+    // Should not attempt to relay URL's
+    if (data.message.message[0].data.includes('http://')
+     || data.message.message[0].data.includes('https://')) {
+       return;
+     }
+
     // Relay message to Twitch
     twitch.say(config.twitch.channels[0], data.user_name + ': ' +
                data.message.message[0].data + ' [M]');
