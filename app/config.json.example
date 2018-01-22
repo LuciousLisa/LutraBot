@@ -1,0 +1,31 @@
+{
+  "twitch": {
+    "options": {
+      "clientId": "",
+      "debug": false
+    },
+    "connection": {
+      "cluster": "aws",
+      "reconnect": true,
+      "maxReconnectAttempts": "",
+      "maxReconnectInterval": 1.5,
+      "reconnectDecay": 1000,
+      "secure": true,
+      "timeout": 9999
+    },
+    "identity": {
+      "username": "MyBotsUsername",
+		  "oauth": "oauth:abcdefg12345"
+    },
+    "channels": [
+      "#channelname"
+    ]
+  },
+  "mixer": {
+    "accesstoken": "abcdefg12345",
+    "username": "MyOwnUsername"
+  },
+  "darksouls": {
+    "deaths": 9001
+  }
+}

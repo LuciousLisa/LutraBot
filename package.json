@@ -1,0 +1,29 @@
+{
+  "name": "lutrabot",
+  "version": "0.1.0",
+  "description": "Twitch and Mixer relay bot",
+  "main": "app/index.js",
+  "scripts": {
+    "start": "node app/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Argure/LutraBot.git"
+  },
+  "keywords": [
+    "lutrabot",
+    "twitch",
+    "mixer",
+    "relay"
+  ],
+  "author": "Patrick Godschalk",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/Argure/LutraBot/issues"
+  },
+  "dependencies": {
+    "beam-client-node": "^1.0.2",
+    "tmi.js": "^1.2.1",
+    "ws": "^4.0.0"
+  }
+}
