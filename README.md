@@ -57,7 +57,8 @@ The following items can be configured in `config.json`:
 Supported commands
 ------------------
 
-| Command | Use                              |
-| ------  | --------------------------------:|
-| +death  | Increases the death count by one |
-| -death  | Decreases the death count by one |
+| Command | Use                                               |
+| ------  | -------------------------------------------------:|
+| !death  | Shows the current death count                     |
+| +death  | Increases the death count by one, Twitch mod only |
+| -death  | Decreases the death count by one, Twitch mod only |
