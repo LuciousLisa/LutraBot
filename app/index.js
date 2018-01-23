@@ -118,7 +118,7 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
 
     // !death
     // Shows the current death count.
-    if (data.mesage.message[0].data == "!death") {
+    if (data.message.message[0].data == "!death") {
       twitch.say(config.twitch.channels[0], 'Ouch... Lisa has died ' + dsDeaths + ' times so far!');
       socket.call('msg', [`Ouch... Lisa has died ${dsDeaths} times so far!`]);
     }
