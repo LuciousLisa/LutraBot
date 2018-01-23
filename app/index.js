@@ -110,9 +110,18 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
        return;
      }
 
-    // Relay message to Twitch
+     // Relay message to Twitch
     twitch.say(config.twitch.channels[0], data.user_name + ': ' +
-               data.message.message[0].data + ' [M]');
+    data.message.message[0].data + ' [M]');
+
+    // Custom commands for Mixer
+
+    // !death
+    // Shows the current death count.
+    if (data.mesage.message[0].data == "!death") {
+      twitch.say(config.twitch.channels[0], 'Ouch... Lisa has died ' + dsDeaths + ' times so far!');
+      socket.call('msg', [`Ouch... Lisa has died ${dsDeaths} times so far!`]);
+    }
   });
 
   // Pick up any chat messages sent to Twitch
@@ -124,6 +133,13 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
     socket.call('msg', [`${userstate.username}: ${message} [T]`]);
 
     // Custom commands for Twitch
+
+    // !death
+    // Shows the current death count.
+    if (message == "!death") {
+      twitch.say(config.twitch.channels[0], 'Ouch... Lisa has died ' + dsDeaths + ' times so far!');
+      socket.call('msg', [`Ouch... Lisa has died ${dsDeaths} times so far!`]);
+    }
 
     // +death
     // Increases death counter by one. This is only supported on Twitch, and
