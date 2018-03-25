@@ -1,6 +1,6 @@
 {
   "name": "lutrabot",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Twitch and Mixer relay bot",
   "main": "app/index.js",
   "scripts": {
@@ -20,6 +20,9 @@
   "license": "BSD-2-Clause",
   "bugs": {
     "url": "https://github.com/Argure/LutraBot/issues"
+  },
+  "devDependencies": {
+    "eslint": "latest"
   },
   "dependencies": {
     "beam-client-node": "^1.0.2",

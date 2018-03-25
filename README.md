@@ -62,3 +62,5 @@ Supported commands
 | !death  | Shows the current death count                     |
 | +death  | Increases the death count by one, Twitch mod only |
 | -death  | Decreases the death count by one, Twitch mod only |
+| !social | Displays social media message                     |
+| !trello | Displays Trello message                           |

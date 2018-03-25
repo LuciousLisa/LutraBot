@@ -68,7 +68,6 @@ twitch.connect();
 
 // Init Mixer
 let userInfo;
-let channelInfo;
 const client = new Mixer.Client(new Mixer.DefaultRequestRunner());
 
 // Mixer configuration
@@ -93,6 +92,13 @@ client.request('GET', `users/current`).then(response => {
   console.error(error);
 });
 
+/**
+ *
+ * @param {*} userId
+ * @param {*} channelId
+ * @param {*} endpoints
+ * @param {*} authkey
+ */
 function createChatSocket(userId, channelId, endpoints, authkey) {
   // Mixer chat connection
   const socket = new Mixer.Socket(ws, endpoints).boot();
@@ -105,7 +111,7 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
     }
 
     // Should not attempt to relay URL's
-    if (data.message.message[0].data.includes('http://')
+    if (data.message.message[0].data.includes('http://') //DevSkim: ignore DS137138
      || data.message.message[0].data.includes('https://')) {
        return;
      }
@@ -122,12 +128,28 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
       twitch.say(config.twitch.channels[0], 'Ouch... Lisa has died ' + dsDeaths + ' times so far!');
       socket.call('msg', [`Ouch... Lisa has died ${dsDeaths} times so far!`]);
     }
+
+    // !social
+    // Displays social media message
+    if (data.message.message[0].data == "!social") {
+      twitch.say(config.twitch.channels[0], 'As far as social media goes, Lisa tries to stay away from them due to privacy concerns, but she’s still active on Twitter: https://twitter.com/SuperLisaa');
+      socket.call('msg', [`As far as social media goes, Lisa tries to stay away from them due to privacy concerns, but she’s still active on Twitter: https://twitter.com/SuperLisaa`]);
+    }
+
+    // !trello
+    // Displays Trello message
+    if (data.message.message[0].data == "!trello") {
+      twitch.say(config.twitch.channels[0], 'Considering the fact that Lisa’s a total goldfish, who forgets things within minutes on a bad day, she’s set up a tool to track her progress: https://trello.com/b/2LTNmEwf');
+      socket.call('msg', [`Considering the fact that Lisa’s a total goldfish, who forgets things within minutes on a bad day, she’s set up a tool to track her progress: https://trello.com/b/2LTNmEwf`]);
+    }
   });
 
   // Pick up any chat messages sent to Twitch
   twitch.on('chat', function(channel, userstate, message, self) {
     // Ignore self
-    if(self) return;
+    if (self) {
+      return;
+    }
 
     // Relay message to Mixer
     socket.call('msg', [`${userstate.username}: ${message} [T]`]);
@@ -139,6 +161,20 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
     if (message == "!death") {
       twitch.say(config.twitch.channels[0], 'Ouch... Lisa has died ' + dsDeaths + ' times so far!');
       socket.call('msg', [`Ouch... Lisa has died ${dsDeaths} times so far!`]);
+    }
+
+    // !social
+    // Displays social media message
+    if (message == "!social") {
+      twitch.say(config.twitch.channels[0], 'As far as social media goes, Lisa tries to stay away from them due to privacy concerns, but she’s still active on Twitter: https://twitter.com/SuperLisaa');
+      socket.call('msg', [`As far as social media goes, Lisa tries to stay away from them due to privacy concerns, but she’s still active on Twitter: https://twitter.com/SuperLisaa`]);
+    }
+
+    // !trello
+    // Displays Trello message
+    if (message == "!trello") {
+      twitch.say(config.twitch.channels[0], 'Considering the fact that Lisa’s a total goldfish, who forgets things within minutes on a bad day, she’s set up a tool to track her progress: https://trello.com/b/2LTNmEwf');
+      socket.call('msg', [`Considering the fact that Lisa’s a total goldfish, who forgets things within minutes on a bad day, she’s set up a tool to track her progress: https://trello.com/b/2LTNmEwf`]);
     }
 
     // +death
@@ -158,17 +194,17 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
     if (message == "-death" && userstate.mod == true) {
       dsDeaths--;
       twitch.say(config.twitch.channels[0], 'Made a mistake? Putting Lisa\'s death counter back to ' + dsDeaths);
-      socket.call('msg', [`Made a mistake? Putting Lisa\'s death counter back to ${dsDeaths}`]);
+      socket.call('msg', [`Made a mistake? Putting Lisa's death counter back to ${dsDeaths}`]);
     }
-  });
-
-  return socket.auth(channelId, userId, authkey).then(() => {
-    console.log('Mixer login successful');
   });
 
   // Handle errors
   socket.on('error', error => {
     console.error('Socket error');
     console.error(error);
+  });
+
+  return socket.auth(channelId, userId, authkey).then(() => {
+    console.log('Mixer login successful');
   });
 }
