@@ -142,6 +142,13 @@ function createChatSocket(userId, channelId, endpoints, authkey) {
       twitch.say(config.twitch.channels[0], 'Considering the fact that Lisa’s a total goldfish, who forgets things within minutes on a bad day, she’s set up a tool to track her progress: https://trello.com/b/2LTNmEwf');
       socket.call('msg', [`Considering the fact that Lisa’s a total goldfish, who forgets things within minutes on a bad day, she’s set up a tool to track her progress: https://trello.com/b/2LTNmEwf`]);
     }
+    
++    // !streams
++    // Displays streams message
++    if (data.message.message[0].data == "!streams") {
++      twitch.say(config.twitch.channels[0], 'In order to stream Dark Souls reliably from the Xbox, Lisa’s hacked together a bit of a franken-setup. She streams from Xbox to Mixer (https://mixer.com/luciouslisaa), then she records that stream from her browser into OBS, which in turn streams to Twitch (https://www.twitch.tv/superlisa). It’s a bit disgusting, but it works!');
++      socket.call('msg', [`In order to stream Dark Souls reliably from the Xbox, Lisa’s hacked together a bit of a franken-setup. She streams from Xbox to Mixer (https://mixer.com/luciouslisaa), then she records that stream from her browser into OBS, which in turn streams to Twitch (https://www.twitch.tv/superlisa). It’s a bit disgusting, but it works!`]);
++    }
   });
 
   // Pick up any chat messages sent to Twitch
